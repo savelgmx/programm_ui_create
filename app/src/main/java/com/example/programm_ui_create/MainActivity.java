@@ -14,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+/*
         // создание LinearLayout
         LinearLayout linLayout = new LinearLayout(this);
         // установим вертикальную ориентацию
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn2 = new Button(this);
         btn2.setText("Button2");
         linLayout.addView(btn2, rightGravityParams);
+*/
 
     }
 }
