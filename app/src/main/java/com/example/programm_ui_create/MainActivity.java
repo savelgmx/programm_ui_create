@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,46 +16,63 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-/*
-        // создание LinearLayout
-        LinearLayout linLayout = new LinearLayout(this);
-        // установим вертикальную ориентацию
-        linLayout.setOrientation(LinearLayout.VERTICAL);
-        // создаем LayoutParams
-        ViewGroup.LayoutParams linLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        // устанавливаем linLayout как корневой элемент экрана
+       // setContentView(R.layout.activity_main);
+        int frameLayoutMatchParent=FrameLayout.LayoutParams.MATCH_PARENT;
+        int relativeLayoutWrapContent=RelativeLayout.LayoutParams.WRAP_CONTENT;
 
-        setContentView(linLayout, linLayoutParam);
-        ViewGroup.LayoutParams lpView = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int linearLayourWrapContent = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int linearLayoutMatchParent = LinearLayout.LayoutParams.MATCH_PARENT;
 
-        TextView tv = new TextView(this);
-        tv.setText("TextView");
-        tv.setLayoutParams(lpView);
-        linLayout.addView(tv);
-
-        Button btn = new Button(this);
-        btn.setText("Button");
-        linLayout.addView(btn, lpView);
-
-
-        LinearLayout.LayoutParams leftMarginParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        leftMarginParams.leftMargin = 50;
-
-        Button btn1 = new Button(this);
-        btn1.setText("Button1");
-        linLayout.addView(btn1, leftMarginParams);
-
-
-        LinearLayout.LayoutParams rightGravityParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        rightGravityParams.gravity = Gravity.RIGHT;
-
-        Button btn2 = new Button(this);
-        btn2.setText("Button2");
-        linLayout.addView(btn2, rightGravityParams);
+        FrameLayout frameLayout = new FrameLayout(this); //создадим корневую frameLayout
+        RelativeLayout relativeLayout = new RelativeLayout(this); //вложена в корневую
+        LinearLayout linearLayout = new LinearLayout(this); //2-й уровень вложенности
+        //задать параметры
+ /*       xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
 */
+       FrameLayout.LayoutParams fParams = new FrameLayout.LayoutParams(frameLayoutMatchParent,frameLayoutMatchParent);
+        frameLayout.addView(relativeLayout, fParams); //add inside  layout
+/*
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+*/
+
+        RelativeLayout.LayoutParams rParams = new RelativeLayout.LayoutParams(relativeLayoutWrapContent,relativeLayoutWrapContent);
+        relativeLayout.setGravity(Gravity.CENTER);
+
+
+
+         //добавить image view
+        //add text view
+        TextView textView = new TextView(this);
+        textView.setText("TextView");
+        //textView.setLayoutParams(lpView);
+        relativeLayout.addView(textView);
+
+
+
+        Button btnPrevious =new Button(this);
+        Button btnNext = new Button(this);
+        btnPrevious.setText("Previous");
+        btnNext.setText("Next");
+
+
+
+
+        // Создание LayoutParams c шириной и высотой по содержимому
+        //LayoutParams(int width, int height)
+        LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
+                linearLayourWrapContent, linearLayourWrapContent);
+
+        linearLayout.addView(btnPrevious,lParams);
+        linearLayout.addView(btnNext,lParams);
+
+        setContentView(linearLayout);
+
 
     }
 }
