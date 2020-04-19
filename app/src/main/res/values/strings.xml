@@ -2,7 +2,7 @@
     <string name="app_name">programm_ui_create</string>
     <string name="author">Afftar пешы исчо</string>
     <string name="text">Просто текст нах</string>
-    <string name="comment">comment</string>
+    <string name="comment">Здесь пишут comment</string>
     <string name="previous">pervious</string>
     <string name="next">next</string>
 </resources>
