@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
         tvTitle.setText(R.string.author);
         tvTitle.setTextSize(28);
         tvParams.topMargin=8;
-        tvTitle.layout(1,R.id.ivIcon,8,8);
+        tvParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,ivIcon.getId());
 
         TextView tvQuote = new TextView(this);
         tvQuote.setText(R.string.text);
         tvQuote.setTextSize(14);
-        tvQuote.layout(1,1,R.id.tvTitle,R.id.tvTitle);
+
 
 
         EditText etComment = new EditText(this);//edit text add
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         etComment.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT);
 
         LinearLayout buttons = new LinearLayout(this);
-
         buttons.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout.LayoutParams buttonsParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
