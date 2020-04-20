@@ -46,38 +46,55 @@ public class MainActivity extends AppCompatActivity {
         TextView tvTitle = new TextView(this);
         tvTitle.setText(R.string.author);
         tvTitle.setTextSize(28);
-        tvParams.topMargin=8;
-        tvParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,ivIcon.getId());
+        tvParams.setMargins(8,8,8,8);
+        tvParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,ivIcon.getId());
 
         TextView tvQuote = new TextView(this);
         tvQuote.setText(R.string.text);
         tvQuote.setTextSize(14);
+        RelativeLayout.LayoutParams tqParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT); //другие параметры для другого текст вью
+        tqParams.setMargins(8,8,8,8);
 
-
+        tqParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,ivIcon.getId());
+        tqParams.addRule(RelativeLayout.ALIGN_PARENT_START,tvTitle.getId());
+        tqParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT,tvTitle.getId());
 
         EditText etComment = new EditText(this);//edit text add
-        RelativeLayout.LayoutParams etParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams etParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
         etComment.setHint(R.string.comment);
         etComment.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT);
+        etParams.addRule(RelativeLayout.BELOW,ivIcon.getId());
+
+       etParams.setMargins(8,8,8,8);
+        etParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,tvQuote.getId());
+
 
         LinearLayout buttons = new LinearLayout(this);
-        buttons.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams buttonsParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams buttonsParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+
 
         Button btnPrevious = new Button(this);
         btnPrevious.setText(R.string.previous);
         Button btnNext = new Button(this);
         btnNext.setText(R.string.next);
 
+
+
+
         //добавляем view вместе с параметрами
         relativeLayout.addView(ivIcon,relativeParams);
         relativeLayout.addView(tvTitle,tvParams);
-        relativeLayout.addView(tvQuote,tvParams);
-        relativeLayout.addView(etComment,etParams);
+
+       relativeLayout.addView(tvQuote,tqParams);
+       relativeLayout.addView(etComment,etParams);
 
         buttons.addView(btnPrevious,buttonsParams);
         buttons.addView(btnNext,buttonsParams);
+
         rootLayout.addView(relativeLayout);
         rootLayout.addView(buttons);
         setContentView(rootLayout);

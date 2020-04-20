@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">programm_ui_create</string>
-    <string name="author">Afftar пешы исчо</string>
-    <string name="text">Просто текст нах</string>
-    <string name="comment">Здесь пишут comment</string>
-    <string name="previous">pervious</string>
+    <string name="author">Bruce Lee</string>
+    <string name="text">“Time means a lot to me because
+        you see I am also a learner and am often lost
+        in the joy of forever developing.”</string>
+    <string name="comment">Write your comment here</string>
+    <string name="previous">previous</string>
     <string name="next">next</string>
 </resources>
