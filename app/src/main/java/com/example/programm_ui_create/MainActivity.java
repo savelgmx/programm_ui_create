@@ -2,6 +2,7 @@ package com.example.programm_ui_create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -25,23 +26,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         FrameLayout rootLayout = new FrameLayout(this); //создадим корневую frameLayout
-        RelativeLayout relativeLayout = new RelativeLayout(this); //вложена в корневую
         //задать параметры для корневого фрейм лайоута в который будут вкладываться остальные
         FrameLayout.LayoutParams rootParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-         rootLayout.setPadding(16,16,16,16); //отступы
-         rootLayout.setLayoutParams(rootParams);//устанавливаем параметры на View
+        rootLayout.setPadding(16,16,16,16); //отступы
+        rootLayout.setLayoutParams(rootParams);//устанавливаем параметры на View
+        RelativeLayout relativeLayout = new RelativeLayout(this); //вложена в корневую
 
         RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        relativeLayout.setLayoutParams(relativeParams);
         relativeLayout.setGravity(Gravity.CENTER);
 
         //добавить image view
         ImageView ivIcon = new ImageView(this);
         ivIcon.setImageResource(R.drawable.bruce_lee);
-        LinearLayout.LayoutParams iconParams =
-                new LinearLayout.LayoutParams(600,658);
-        ivIcon.setLayoutParams(iconParams);
         ivIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
         ivIcon.setId('1');
         //добавить text view
@@ -72,44 +71,57 @@ public class MainActivity extends AppCompatActivity {
         tvQuote.setTypeface(Typeface.DEFAULT,Typeface.ITALIC);
         tvQuote.setId('3');
 
-
-
-        EditText etComment = new EditText(this);//edit text add
-        RelativeLayout.LayoutParams etParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        etComment.setHint(R.string.comment);
-        etComment.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT);
-        etParams.addRule(RelativeLayout.BELOW,ivIcon.getId());
-
-       etParams.setMargins(8,8,8,8);
-        etParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,tvQuote.getId());
-
-
         LinearLayout buttons = new LinearLayout(this);
-        LinearLayout.LayoutParams buttonsParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        buttons.setId('4');
 
+        EditText etComment = new EditText(this);
+        RelativeLayout.LayoutParams etParams =
+                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        etParams.topMargin = 8;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            etParams.addRule(RelativeLayout.BELOW, ivIcon.getId());
+        } else {
+            etParams.addRule(RelativeLayout.ALIGN_LEFT,tvQuote.getId());
+            etParams.addRule(RelativeLayout.ABOVE, buttons.getId());
+        }
+        etComment.setLayoutParams(etParams);
+        etComment.setHint(R.string.comment);
+        etComment.setInputType(InputType.TYPE_CLASS_TEXT);
+        etComment.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+        etComment.setId('5');
 
+        buttons.setOrientation(LinearLayout.HORIZONTAL);
+        RelativeLayout.LayoutParams buttonsContParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            buttonsContParams.addRule(RelativeLayout.BELOW,etComment.getId());
+        } else {
+            buttonsContParams.addRule(RelativeLayout.ALIGN_LEFT,etComment.getId());
+            buttonsContParams.addRule(RelativeLayout.ALIGN_BOTTOM, ivIcon.getId());
+        }
+        buttons.setLayoutParams(buttonsContParams);
 
         Button btnPrevious = new Button(this);
         btnPrevious.setText(R.string.previous);
         Button btnNext = new Button(this);
         btnNext.setText(R.string.next);
 
+        LinearLayout.LayoutParams buttonsParams =
+                new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+        buttonsParams.weight = 1;
 
-
+        buttons.addView(btnPrevious,buttonsParams);
+        buttons.addView(btnNext,buttonsParams);
 
         //добавляем view вместе с параметрами
         relativeLayout.addView(ivIcon,relativeParams);
         relativeLayout.addView(tvTitle,titleParams);
         relativeLayout.addView(tvQuote,tqParams);
         relativeLayout.addView(etComment,etParams);
-
-        buttons.addView(btnPrevious,buttonsParams);
-        buttons.addView(btnNext,buttonsParams);
-
+        relativeLayout.addView(buttons);
         rootLayout.addView(relativeLayout);
-  //      rootLayout.addView(buttons);
+
         setContentView(rootLayout);
     }
 }
